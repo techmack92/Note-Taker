@@ -1,7 +1,7 @@
 const express = require('express');
-const fs = require('fs');
 const path = require('path');
-const api = require('./routes/index')
+const api = require('./routes/api');
+const html = require('./routes/html');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -11,14 +11,12 @@ const PORT = process.env.PORT || 3001;
 //                       Middleware:
 // **********************************************************************
 //
+// To allow for parsing data in JSON 
+app.use(express.urlencoded(({ extended: true })));
+app.use(express.json());
+
 // To serve static files from public directory
 app.use(express.static('public'));
-
-// To allow for parsing data in JSON 
-app.use(express.json());
-app.use(express.urlencoded(({ extended: true })));
-
-app.use('/api', api);
 
 //
 // **********************************************************************
@@ -26,14 +24,11 @@ app.use('/api', api);
 // **********************************************************************
 //
 
-// To handle HTML routes for notes.html and index.html
-app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/notes.html'))
-});
+// To handle API routes
+app.use('/api', api);
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join('/public/index.html'))
-});
+// To handle HTML routes
+app.use('/', html);
 
 //
 // **********************************************************************
