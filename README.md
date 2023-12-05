@@ -22,10 +22,10 @@ The purpose of this project is to create, save & delete notes.
 ## Deployed Application
 [Note Taker]( https://peaceful-dusk-91149-10e35106ace8.herokuapp.com/)
 
-## Installation (for Windows)
+## Installation
 ***Install these programs on your computer:***
-+ Visual Studio<br>
-+ GitBash <br> 
++ Visual Studio (*Windows users*)<br>
++ GitBash (*Windows users*)<br> 
 + Node.js<br>
 + Express.js<br>
 + UUID<br>
