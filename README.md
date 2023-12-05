@@ -16,7 +16,7 @@
 + [Questions](#questions)
 
 ## Overview
-The purpose of this project is to generate an SVG logo file that reflects user input.
+The purpose of this project is to create, save & delete notes.
 
 ## Installation (for Windows)
 ***Install these programs on your computer:***
