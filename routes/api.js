@@ -1,8 +1,7 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 const fs = require('fs');
 const path = require('path');
-const { v4: uuidv4 } = require('uuid');
+const generateShortId = require('../helpers/uuid');
 
 // GET Request: /api/notes reads the db.json file & returns all saved notes as JSON
 router.get('/notes', (req, res) => {
@@ -35,7 +34,7 @@ router.post('/notes', (req, res) => {
         const newNote = {
             title,
             text,
-            id: uuidv4(),
+            id: generateShortId(),
         };
 
         fs.readFile('./db/db.json', 'utf8', (err, data) => {
@@ -48,7 +47,7 @@ router.post('/notes', (req, res) => {
             const notes = JSON.parse(data);
 
             // Assign unique ID to new notes
-            newNote.id = uuidv4();
+            newNote.id = generateShortId();
 
             // Add newNote object to notes array
             notes.push(newNote);
@@ -68,6 +67,37 @@ router.post('/notes', (req, res) => {
         // Returns 400 error if title or text is missing
         res.status(400).json({ error: 'Title and text are required' });
     }  
+});
+
+// DELETE Request /api/notes/:id receives a query parameter containing the id of a note to delete. 
+// ....In order to delete a note, read all notes from the db.json file, remove the note with the given id property, 
+// ....& then rewrite the notes to the db.json file.
+router.delete('/notes/:id', (req,res) => {
+    // Log that a DELETE request was received
+    console.info(`${req.method} request received to delete note`);
+
+   // Get ID of the note that will be deleted
+   const noteId = req.params.id;
+
+   fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    if (err) {
+        console.error(err);
+        // Returns 500 error if there's an error reading notes
+        return res.status(500).json({ error: 'There was an error reading notes' })
+    }
+    let notes = JSON.parse(data);
+    // Removes the target note to be deleted
+    notes = notes.filter((note) => note.id !== noteId);
+    
+    // Write data from db.json after target note is deleted
+    fs.writeFile('./db/db.json', JSON.stringify(notes), (err) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'There was an error writing to db.json file' })
+        }
+        return res.json({ success: true });
+    });
+   });
 });
 
 module.exports = router;

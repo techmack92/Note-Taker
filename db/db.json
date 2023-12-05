@@ -1,16 +1,1 @@
-[
-    {"title":"To-Do List:",
-     "text":"- Laundry\n- Grocery shopping\n- Clean the house\n- Cook dinner",
-     "id":"276cd3f3-f2f5-49af-9ad8-480ffd8e81f8"
-    },
-    
-    {"title":"Homework",
-     "text":"Finish the `DELETE` request section",
-     "id":"277c8d7f-7f72-4466-9bfa-2bcd67c48d62"
-    },
-     
-    {"title":"Sunday Funday",
-     "text":"Go do something fun with a friend or decompress solo; either way,\nNO WORKING!",
-     "id":"768a1265-49a3-4e75-a5ba-e588645fc8ce"
-    }
-]
+[{"title":"To-Do List","text":"- Laundry\n- Grocery shopping\n- Clean the house\n- Cook dinner","id":"96d8"},{"title":"Homework :(","text":"Finish the `DELETE` request section","id":"a762"},{"title":"Sunday Funday","text":"Go do something fun with a friend or decompress solo; either way,\nNO WORKING!","id":"79ae"}]
